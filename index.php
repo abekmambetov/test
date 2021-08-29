@@ -13,14 +13,14 @@ class XlsxCreator {
         $this->alphachar = array_merge(range('A', 'Z'), range('a', 'z'));
     }
 
-    public function parseJson($filename): array {
+    public function parseJson(string $filename): array {
         $string = file_get_contents($filename);
         $json_a = json_decode($string, true);
  
         return $json_a;
     }
 
-    public function createHeaders($headers) {
+    public function createHeaders(array $headers) {
         $this->spreadsheet->setActiveSheetIndex(0);
 
         for ($i = 0; $i < count($headers); $i++) {
@@ -28,10 +28,9 @@ class XlsxCreator {
         }
 
         $this->writer = new Xlsx($this->spreadsheet);
-        
     }
 
-    public function createRows($data) {
+    public function createRows(array $data) {
         
         // Начинаем со второй строки потому что первая строка это заголовок ячейки
         $rowNum = 2;
