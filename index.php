@@ -13,7 +13,7 @@ class XlsxCreator {
         $this->alphachar = array_merge(range('A', 'Z'), range('a', 'z'));
     }
 
-    public function parseJson($filename) {
+    public function parseJson($filename): array {
         $string = file_get_contents($filename);
         $json_a = json_decode($string, true);
  
@@ -48,15 +48,10 @@ class XlsxCreator {
 
 }
 
+$XlsxCreator = new XlsxCreator(new Spreadsheet());
 
-
-
-$spreadsheet = new Spreadsheet();
-
-$XlsxCreator = new XlsxCreator($spreadsheet);
-
-$headers = $XlsxCreator->parseJson("header.json");
+$headers = $XlsxCreator->parseJson(filename: "header.json");
 $XlsxCreator->createHeaders($headers);
 
-$data = $XlsxCreator->parseJson("data.json");
+$data = $XlsxCreator->parseJson(filename: "data.json");
 $XlsxCreator->createRows($data);
