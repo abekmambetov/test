@@ -47,12 +47,12 @@ class XlsxFileCreator {
     }
 }
 
-$XlsxCreator = new XlsxFileCreator(new Spreadsheet());
+$XlsxFileCreator = new XlsxFileCreator(new Spreadsheet());
 
-$headers = $XlsxCreator->parseJson(filename: "header.json");
-$XlsxCreator->addHeaders($headers);
+$headers = $XlsxFileCreator->parseJson(filename: "header.json");
+$XlsxFileCreator->addHeaders($headers);
 
-$data = $XlsxCreator->parseJson(filename: "data.json");
-$XlsxCreator->addRows($data);
+$data = $XlsxFileCreator->parseJson(filename: "data.json");
+$XlsxFileCreator->addRows($data);
 
-$XlsxCreator->createXlsxFile();
+$XlsxFileCreator->createXlsxFile();
