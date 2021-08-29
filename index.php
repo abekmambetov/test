@@ -21,12 +21,14 @@ class XlsxFileCreator {
     }
 
     public function addHeaders(array $headers) {
-        $this->countColumns = count($headers);
+        
         $this->spreadsheet->setActiveSheetIndex(0);
 
         for ($i = 0; $i < count($headers); $i++) {
             $this->spreadsheet->getActiveSheet()->setCellValue($this->alphachar[$i] . "1", $headers[$i]);
         }
+
+        $this->countColumns = count($headers);
     }
 
     public function addRows(array $data) {
