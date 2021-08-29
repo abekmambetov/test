@@ -21,6 +21,7 @@ class XlsxFileCreator {
     }
 
     public function addHeaders(array $headers) {
+        $this->countColumns = count($headers);
         $this->spreadsheet->setActiveSheetIndex(0);
 
         for ($i = 0; $i < count($headers); $i++) {
@@ -43,12 +44,12 @@ class XlsxFileCreator {
 
     public function createXlsxFile() {
 
-        // Ставим необходимую ширину для ячеек
-        foreach(range('A','Z') as $columnID) {
+        // Ставим необходимую ширину для ячеек начиная с A и заканчивая последним литералом из массива $this->alphachar по количеству колонок $this->countColumns в таблице
+        foreach(range('A', $this->alphachar[$this->countColumns-1]) as $columnID) {
             $this->spreadsheet->getActiveSheet()->getColumnDimension($columnID)
                 ->setAutoSize(true);
         }
-
+        
         $this->writer = new Xlsx($this->spreadsheet);
         $this->writer->save('table.xlsx');
     }
