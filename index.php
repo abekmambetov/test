@@ -4,7 +4,7 @@ require 'vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class XlsxCreator {
+class XlsxFileCreator {
 
     public function __construct(Spreadsheet $spreadsheet) {
         $this->spreadsheet = $spreadsheet;
@@ -20,17 +20,15 @@ class XlsxCreator {
         return $json_a;
     }
 
-    public function createHeaders(array $headers) {
+    public function addHeaders(array $headers) {
         $this->spreadsheet->setActiveSheetIndex(0);
 
         for ($i = 0; $i < count($headers); $i++) {
             $this->spreadsheet->getActiveSheet()->setCellValue($this->alphachar[$i] . "1", $headers[$i]);
         }
-
-        $this->writer = new Xlsx($this->spreadsheet);
     }
 
-    public function createRows(array $data) {
+    public function addRows(array $data) {
         
         // Начинаем со второй строки потому что первая строка это заголовок ячейки
         $rowNum = 2;
@@ -41,16 +39,21 @@ class XlsxCreator {
             }
             $rowNum++;
         }
-
-        $this->writer->save('table.xlsx');
     }
 
+
+    public function createXlsxFile() {
+        $this->writer = new Xlsx($this->spreadsheet);
+        $this->writer->save('table.xlsx');
+    }
 }
 
-$XlsxCreator = new XlsxCreator(new Spreadsheet());
+$XlsxCreator = new XlsxFileCreator(new Spreadsheet());
 
 $headers = $XlsxCreator->parseJson(filename: "header.json");
-$XlsxCreator->createHeaders($headers);
+$XlsxCreator->addHeaders($headers);
 
 $data = $XlsxCreator->parseJson(filename: "data.json");
-$XlsxCreator->createRows($data);
+$XlsxCreator->addRows($data);
+
+$XlsxCreator->createXlsxFile();
