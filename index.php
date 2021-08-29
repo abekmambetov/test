@@ -41,7 +41,6 @@ class XlsxFileCreator {
         }
     }
 
-
     public function createXlsxFile() {
         $this->writer = new Xlsx($this->spreadsheet);
         $this->writer->save('table.xlsx');
