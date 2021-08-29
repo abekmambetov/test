@@ -42,6 +42,13 @@ class XlsxFileCreator {
     }
 
     public function createXlsxFile() {
+
+        // Ставим необходимую ширину для ячеек
+        foreach(range('A','Z') as $columnID) {
+            $this->spreadsheet->getActiveSheet()->getColumnDimension($columnID)
+                ->setAutoSize(true);
+        }
+
         $this->writer = new Xlsx($this->spreadsheet);
         $this->writer->save('table.xlsx');
     }
