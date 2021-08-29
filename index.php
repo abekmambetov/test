@@ -10,7 +10,7 @@ class XlsxFileCreator {
         $this->spreadsheet = $spreadsheet;
 
         # Массив английских символов для столбцов
-        $this->alphachar = array_merge(range('A', 'Z'), range('a', 'z'));
+        $this->alphachar = range('A', 'Z');
     }
 
     public function parseJson(string $filename): array {
